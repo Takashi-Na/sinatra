@@ -6,6 +6,10 @@ WORKDIR /var/www
 # Docerにコピー
 COPY ./src /var/www/
 
+# コマンドを実行する
+RUN bundle config --local set path 'vendor/bundle' \
+    && bundle install
+
 # バッシュを起動
 # コマンドを適当にDockerで起動させるとエラーが起きやすい
-CMD [ "/bin/bash" ]
+CMD [ "bundle", "exec", "ruby", "app.rb" ]
